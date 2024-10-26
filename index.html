@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Stress Calculator</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #ebeeee, rgb(0, 248, 248));
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-size: 1.1rem;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1.1rem;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            color: #16a085;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stress Calculator</h1>
+
+        <!-- Input fields for force and area -->
+        <label for="force">Force (F):</label>
+        <input type="number" id="force" step="any" placeholder="Enter force in Newtons" required>
+
+        <label for="area">Area (A):</label>
+        <input type="number" id="area" step="any" placeholder="Enter area in square meters" required>
+
+        <!-- Button to trigger calculation -->
+        <button id="calculate-btn">Calculate Stress</button>
+
+        <!-- Result display area -->
+        <p id="result"></p>
+    </div>
+
+    <!-- PyScript code to handle the calculation -->
+    <py-script>
+        from pyscript import Element
+
+        def calculate(*args):
+            try:
+                # Get force and area values from input fields
+                force = float(Element("force").element.value)
+                area = float(Element("area").element.value)
+
+                # Calculate stress (Stress = Force / Area)
+                stress = force / area
+
+                # Display the result in the result element
+                Element("result").element.innerHTML = f'Stress: {stress:.2f} N/m²'
+            except ValueError:
+                # Handle invalid input
+                Element("result").element.innerHTML = 'Invalid input. Please enter valid numbers.'
+
+        # Attach the calculate function to the button click event
+        Element("calculate-btn").element.onclick = calculate
+    </py-script>
+</body>
+</html>
